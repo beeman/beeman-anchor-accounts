@@ -20,7 +20,11 @@ export function SolanaProvider({ children }: { children: ReactNode }) {
   const { cluster } = useCluster()
   const endpoint = useMemo(() => cluster.endpoint, [cluster])
   const wallets = useMemo(
-    () => [new SolflareWalletAdapter({ network: toWalletAdapterNetwork(cluster.network) })],
+    () => [
+      new SolflareWalletAdapter({
+        network: toWalletAdapterNetwork(cluster.network),
+      }),
+    ],
     [cluster],
   )
 
@@ -41,5 +45,7 @@ export function useAnchorProvider() {
   const { connection } = useConnection()
   const wallet = useWallet()
 
-  return new AnchorProvider(connection, wallet as AnchorWallet, { commitment: 'confirmed' })
+  return new AnchorProvider(connection, wallet as AnchorWallet, {
+    commitment: 'confirmed',
+  })
 }
